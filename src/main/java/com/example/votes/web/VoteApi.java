@@ -3,18 +3,20 @@ package com.example.votes.web;
 import com.example.votes.app.domain.Vote;
 import com.example.votes.app.domain.VoteValue;
 import com.example.votes.app.service.VoteService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 public class VoteApi {
 
-    @Autowired
-    private VoteService service;
+    private final VoteService service;
 
     @PostMapping(path = "/votes")
     public SaveVoteResponse save(@RequestBody SaveVoteRequest request) {
@@ -31,38 +33,17 @@ public class VoteApi {
     }
 }
 
+@Getter
+@Setter
 class SaveVoteRequest {
 
     private UUID userId;
 
     private VoteValue voteValue;
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public VoteValue getVoteValue() {
-        return voteValue;
-    }
-
-    public void setVoteValue(VoteValue voteValue) {
-        this.voteValue = voteValue;
-    }
 }
 
+@Getter
+@Setter
 class SaveVoteResponse {
-
     private boolean isSaved;
-
-    public boolean isSaved() {
-        return isSaved;
-    }
-
-    public void setSaved(boolean saved) {
-        isSaved = saved;
-    }
 }
